@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-t-infra-postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: pod-t-infra-postgres
+      labels:
+        app: t-infra-postgres
+    spec:
+      containers:
+        - name: container-t-infra-postgres
+          image: postgres:15.2
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: configmap-t-infra-postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: volume-t-infra-postgres
+      volumes:
+        - name: volume-t-infra-postgres
+          persistentVolumeClaim:
+            claimName: pvc-t-infra-postgres
+  selector:
+    matchLabels:
+      app: t-infra-postgres
+  serviceName: service-t-infra-postgres

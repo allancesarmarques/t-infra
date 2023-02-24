@@ -1,0 +1,16 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: pv-t-infra-postgres
+  labels:
+    type: local
+    app: t-infra-postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    type: DirectoryOrCreate
+    path: /run/desktop/mnt/host/c/Volumes/t-infra-postgres

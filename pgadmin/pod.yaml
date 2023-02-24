@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-t-infra-pgadmin
+  labels:
+    app: t-infra-pgadmin
+spec:
+  containers:
+    - name: container-t-infra-pgadmin
+      image: dpage/pgadmin4
+      imagePullPolicy: "IfNotPresent"
+      ports:
+        - containerPort: 80
+      envFrom:
+        - configMapRef:
+            name: configmap-t-infra-pgadmin

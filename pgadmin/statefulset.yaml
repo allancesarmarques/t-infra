@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-t-infra-pgadmin
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: pod-t-infra-pgadmin
+      labels:
+        app: t-infra-pgadmin
+    spec:
+      containers:
+        - name: container-t-infra-pgadmin
+          image: dpage/pgadmin4
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: configmap-t-infra-pgadmin
+          volumeMounts:
+            - mountPath: /var/lib/pgadmin
+              name: volume-t-infra-pgadmin
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+      volumes:
+        - name: volume-t-infra-pgadmin
+          persistentVolumeClaim:
+            claimName: pvc-t-infra-pgadmin
+  selector:
+    matchLabels:
+      app: t-infra-pgadmin
+  serviceName: service-t-infra-pgadmin
