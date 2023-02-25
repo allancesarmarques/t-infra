@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-t-infra-redis-0
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: pod-t-infra-redis-0
+      labels:
+        app: t-infra-redis-0
+    spec:
+      containers:
+        - name: container-t-infra-redis-0
+          image: redis:7.0.8-alpine
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: volume-t-infra-redis-0
+              mountPath: /data
+      volumes:
+        - name: volume-t-infra-redis-0
+          persistentVolumeClaim:
+            claimName: pvc-t-infra-redis-0
+  selector:
+    matchLabels:
+      app: t-infra-redis-0
+  serviceName: service-t-infra-redis-0

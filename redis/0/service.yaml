@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-t-infra-redis-0
+spec:
+  type: ClusterIP
+  selector:
+    app: t-infra-redis-0
+  ports:
+    - port: 6379
