@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-t-infra-zookeeper
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: t-infra-zookeeper
+  template:
+    metadata:
+      name: pod-t-infra-zookeeper
+      labels:
+        app: t-infra-zookeeper
+    spec:
+      containers:
+        - name: container-t-infra-zookeeper
+          image: wurstmeister/zookeeper
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 2181
