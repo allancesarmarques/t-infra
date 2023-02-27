@@ -2,6 +2,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: pvc-t-infra-pgadmin
+  namespace: t-project
   labels:
     app: t-infra-pgadmin
 spec:

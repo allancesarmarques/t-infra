@@ -2,11 +2,13 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: statefulset-t-infra-redis-0
+  namespace: t-project
 spec:
   replicas: 1
   template:
     metadata:
       name: pod-t-infra-redis-0
+      namespace: t-project
       labels:
         app: t-infra-redis-0
     spec:

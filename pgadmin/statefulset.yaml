@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: statefulset-t-infra-pgadmin
+  namespace: t-project
 spec:
   replicas: 1
   template:
